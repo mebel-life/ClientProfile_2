@@ -1,5 +1,7 @@
 package org.client.service.impl;
 
+
+import org.client.dto.AvatarDto;
 import org.client.entity.Individual;
 import org.client.entity.RFPassport;
 import org.client.repositories.IndividualRepository;
@@ -32,5 +34,12 @@ public class IndividualServiceImpl implements IndividualService {
     public void saveRFPassport(RFPassport rfPassport, String icp) {
         Individual individual = findByIcp(icp);
         individual.setRfPassport(rfPassport);
+    }
+
+    @Override
+    @Transactional
+    public void saveAvatarDto(org.client.entity.AvatarDto avatarDto, String uuid) {
+        Individual individual = individualRepository.findByUuid(uuid);
+        individual.setAvatarDto(avatarDto);
     }
 }

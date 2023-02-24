@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public interface AvatarService {
 
-    String uploadAvatar(MultipartFile file) throws IOException;
+    AvatarDto uploadAvatar(String uuid,MultipartFile file) throws IOException;
 
     byte[] getAvatar (String uuid);
     AvatarDto getInfoByUuid(String uuid);

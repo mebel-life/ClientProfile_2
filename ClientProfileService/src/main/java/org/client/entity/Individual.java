@@ -49,4 +49,9 @@ public class Individual {
     @JoinColumn(name = "contacts")
     private ContactMedium contacts;
 
+    // связал с таблицей AvatarDto из ProfileAvatar
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "avatar")
+    private AvatarDto avatarDto;
+
 }

@@ -10,12 +10,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Schema(description = "Модель, описывающая аватар пользователя")
 @Data
@@ -28,9 +23,9 @@ import javax.persistence.Table;
 @Table(name="avatarData")
 public class AvatarDto {
 
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @Id // uuid передаю из сервиса, чтобы uuid Avatar соответсвовал uuid Individual
+//    @GeneratedValue(generator = "UUID")
+//    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
     @JsonProperty(Fields.UUID)
     @Column(name = "uuid", unique = true, length = 50)
     private String uuid;
@@ -42,6 +37,9 @@ public class AvatarDto {
     @Lob
     @Column
     private byte [] byteSize;
+
+    @OneToOne(mappedBy = "avatarDto", cascade = CascadeType.ALL)
+    private Individual individual;
 
     public static class Fields {
 

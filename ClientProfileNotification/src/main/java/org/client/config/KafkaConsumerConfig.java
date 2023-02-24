@@ -53,7 +53,7 @@ public class KafkaConsumerConfig {
         factory.setConsumerFactory(consumerFactoryAddress());
         return factory;
     }
-
+    @Bean
     public ConsumerFactory<Long, IndividualDto> consumerFactoryIndividual() {
         return new DefaultKafkaConsumerFactory<>(consumerConfigs());
     }

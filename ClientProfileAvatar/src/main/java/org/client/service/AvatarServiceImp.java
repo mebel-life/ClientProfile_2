@@ -19,19 +19,20 @@ public class AvatarServiceImp implements AvatarService {
 
     private final AvatarRepo avatarRepo;
 
-    @Transactional
-    public String uploadAvatar(MultipartFile file) throws IOException {
+    @Transactional // изменил Возвращание AvatarDtо
+    public AvatarDto uploadAvatar(String uuid, MultipartFile file) throws IOException {
 
         if (file.isEmpty()) {
             throw new NullPointerException("File is empty. Please try again");
         }
         AvatarDto avatarDto = avatarRepo.save(AvatarDto.builder()
+                .uuid(uuid)
                 .name(file.getOriginalFilename())
                 .md5(DigestUtils.md5Hex(file.getName()))
                 .fileSize(file.getSize())
                 .byteSize(AvatarUtils.compressImage(file.getBytes())).build());
         if (avatarDto != null) {
-            return "avatar upload successfully" + file.getOriginalFilename();
+            return avatarDto;
         }
         return null;
     }
